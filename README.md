@@ -1,6 +1,6 @@
-# @nestjs-typed-config/core
+# @mbrughelli/nestjs-typed-config
 
-[![npm version](https://badge.fury.io/js/@nestjs-typed-config%2Fcore.svg)](https://badge.fury.io/js/@nestjs-typed-config%2Fcore)
+[![npm version](https://badge.fury.io/js/@mbrughelli%2Fnestjs-typed-config.svg)](https://badge.fury.io/js/@mbrughelli%2Fnestjs-typed-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 | Statements                  | Branches                | Functions                 | Lines             |
@@ -23,11 +23,11 @@ Type-safe configuration module for NestJS applications with Zod validation. Say 
 ## 📦 Installation
 
 ```bash
-npm install @nestjs-typed-config/core zod
+npm install @mbrughelli/nestjs-typed-config zod
 # or
-yarn add @nestjs-typed-config/core zod
+yarn add @mbrughelli/nestjs-typed-config zod
 # or
-pnpm add @nestjs-typed-config/core zod
+pnpm add @mbrughelli/nestjs-typed-config zod
 ```
 
 ## 🚀 Quick Start
@@ -55,7 +55,7 @@ export type Environment = z.infer<typeof envSchema>;
 ```typescript
 // src/config/config.service.ts
 import { Injectable } from '@nestjs/common';
-import { BaseTypedConfigService } from '@nestjs-typed-config/core';
+import { BaseTypedConfigService } from '@mbrughelli/nestjs-typed-config';
 import { envSchema, Environment } from './env.validation';
 
 @Injectable()
@@ -96,7 +96,7 @@ export class AppConfigService extends BaseTypedConfigService<typeof envSchema> {
 
 ```typescript
 // src/config/config.module.ts
-import { createTypedConfigModule } from '@nestjs-typed-config/core';
+import { createTypedConfigModule } from '@mbrughelli/nestjs-typed-config';
 import { AppConfigService } from './config.service';
 import { envSchema } from './env.validation';
 
@@ -191,7 +191,7 @@ export const createConfigModule = (environment: string) => {
 ```typescript
 // src/auth/auth.service.spec.ts
 import { Test } from '@nestjs/testing';
-import { createTypedConfigMock } from '@nestjs-typed-config/core/testing';
+import { createTypedConfigMock } from '@mbrughelli/nestjs-typed-config/testing';
 import { AppConfigService } from '../config/config.service';
 import { envSchema } from '../config/env.validation';
 import { AuthService } from './auth.service';
@@ -278,7 +278,7 @@ import {
   createTypedConfigMock, 
   MockTypedConfigService,
   createTestConfig 
-} from '@nestjs-typed-config/core/testing';
+} from '@mbrughelli/nestjs-typed-config/testing';
 
 // Create a mock with default values
 const mockConfig = createTypedConfigMock(envSchema);

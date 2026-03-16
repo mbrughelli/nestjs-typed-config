@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { createTypedConfigModule } from '@nestjs-typed-config/core';
+import { createTypedConfigModule } from '@mbrughelli/nestjs-typed-config';
 import { AppConfigService } from './config.service.example';
 import { envSchema } from './env.validation.example';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseTypedConfigService, ConfigProperty } from '@nestjs-typed-config/core';
+import { BaseTypedConfigService, ConfigProperty } from '@mbrughelli/nestjs-typed-config';
 import { envSchema, Environment } from './env.validation';
 
 /**

@@ -1,7 +1,7 @@
 {
   "name": "nestjs-typed-config-example",
   "version": "1.0.0",
-  "description": "Basic usage example for @nestjs-typed-config/core",
+  "description": "Basic usage example for @mbrughelli/nestjs-typed-config",
   "main": "dist/main.js",
   "scripts": {
     "build": "nest build",
@@ -14,7 +14,7 @@
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.4.9",
     "@nestjs/platform-express": "^10.4.9",
-    "@nestjs-typed-config/core": "^1.0.0",
+    "@mbrughelli/nestjs-typed-config": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "zod": "^3.22.0"
   },

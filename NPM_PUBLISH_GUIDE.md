@@ -1,4 +1,4 @@
-# Publishing @nestjs-typed-config/core to npm
+# Publishing @mbrughelli/nestjs-typed-config to npm
 
 A comprehensive guide for getting this package production-ready and published to the npm registry, based on [Snyk's best practices for creating a modern npm package](https://snyk.io/blog/best-practices-create-modern-npm-package/) and an audit of the current codebase.
 
@@ -73,7 +73,7 @@ Several fields still contain placeholder values:
 }
 ```
 
-Additionally, scoped packages (`@nestjs-typed-config/core`) default to **private** on npm. Without `publishConfig`, running `npm publish` will fail with a 402 error unless you pass `--access=public` every time.
+Additionally, scoped packages (`@mbrughelli/nestjs-typed-config`) default to **private** on npm. Without `publishConfig`, running `npm publish` will fail with a 402 error unless you pass `--access=public` every time.
 
 ### Fix
 
@@ -100,7 +100,7 @@ Also update the header comment in `src/index.ts`:
 
 ```typescript
 /**
- * @nestjs-typed-config/core
+ * @mbrughelli/nestjs-typed-config
  *
  * Type-safe configuration module for NestJS applications with Zod validation
  *
@@ -146,7 +146,7 @@ git branch -M main
 git add .
 
 # Create initial commit
-git commit -m "feat: initial commit of @nestjs-typed-config/core"
+git commit -m "feat: initial commit of @mbrughelli/nestjs-typed-config"
 
 # Create the GitHub repo (requires gh CLI)
 gh repo create nestjs-typed-config --public --source=. --remote=origin
@@ -640,8 +640,8 @@ npm install /path/to/nestjs-typed-config-core-1.0.0.tgz
 Then try importing and using the library in the test project:
 
 ```typescript
-import { BaseTypedConfigService, createTypedConfigModule, z } from '@nestjs-typed-config/core';
-import { createTypedConfigMock } from '@nestjs-typed-config/core/testing';
+import { BaseTypedConfigService, createTypedConfigModule, z } from '@mbrughelli/nestjs-typed-config';
+import { createTypedConfigMock } from '@mbrughelli/nestjs-typed-config/testing';
 ```
 
 Verify:
@@ -659,7 +659,7 @@ Faster iteration during development:
 npm link
 
 # In your test project
-npm link @nestjs-typed-config/core
+npm link @mbrughelli/nestjs-typed-config
 ```
 
 **Note:** `npm link` uses symlinks, which can behave differently than a real install (especially with peer dependencies). Always do a final test with `npm pack` before publishing.
@@ -922,7 +922,7 @@ npm publish --access=public
 Just push/merge to `main` with a conventional commit like:
 
 ```
-feat: initial release of @nestjs-typed-config/core
+feat: initial release of @mbrughelli/nestjs-typed-config
 ```
 
 The CI pipeline handles the rest.
@@ -931,12 +931,12 @@ The CI pipeline handles the rest.
 
 ```bash
 # Check that the package is live
-npm view @nestjs-typed-config/core
+npm view @mbrughelli/nestjs-typed-config
 
 # Try installing it in a fresh project
 mkdir /tmp/test-install && cd /tmp/test-install
 npm init -y
-npm install @nestjs-typed-config/core
+npm install @mbrughelli/nestjs-typed-config
 ```
 
 ---
@@ -945,18 +945,18 @@ npm install @nestjs-typed-config/core
 
 After your first successful publish:
 
-- [ ] Verify the package page looks correct at `https://www.npmjs.com/package/@nestjs-typed-config/core`
+- [ ] Verify the package page looks correct at `https://www.npmjs.com/package/@mbrughelli/nestjs-typed-config`
 - [ ] Confirm README renders correctly on npm
 - [ ] Confirm repository/homepage/bugs links work
 - [ ] Test installing the published package in a real NestJS project
 - [ ] Verify TypeScript types and IntelliSense work for consumers
 - [ ] Verify both `import` (ESM) and `require` (CJS) work
-- [ ] Verify `@nestjs-typed-config/core/testing` subpath export works
+- [ ] Verify `@mbrughelli/nestjs-typed-config/testing` subpath export works
 - [ ] Set up Snyk monitoring by connecting your GitHub repo at snyk.io
 - [ ] Add a status badge to your README:
 
 ```markdown
-[![npm version](https://img.shields.io/npm/v/@nestjs-typed-config/core.svg)](https://www.npmjs.com/package/@nestjs-typed-config/core)
+[![npm version](https://img.shields.io/npm/v/@mbrughelli/nestjs-typed-config.svg)](https://www.npmjs.com/package/@mbrughelli/nestjs-typed-config)
 [![Tests](https://github.com/YOUR_USERNAME/nestjs-typed-config/actions/workflows/test.yml/badge.svg)](https://github.com/YOUR_USERNAME/nestjs-typed-config/actions/workflows/test.yml)
 ```
 

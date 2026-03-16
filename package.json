@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-typed-config/core",
+  "name": "@mbrughelli/nestjs-typed-config",
   "version": "1.0.0",
   "description": "Type-safe configuration module for NestJS applications with Zod validation",
   "keywords": [
@@ -15,7 +15,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mbrughelli/nestjs-typed-config.git"
+    "url": "git+https://github.com/mbrughelli/nestjs-typed-config.git"
   },
   "bugs": {
     "url": "https://github.com/mbrughelli/nestjs-typed-config/issues"
