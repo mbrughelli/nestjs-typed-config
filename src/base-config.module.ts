@@ -1,5 +1,5 @@
 import { DynamicModule, Global, Module, Type } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { z } from 'zod';
 import { TypedConfigOptions } from './interfaces';
 import { BaseTypedConfigService } from './base-config.service';
@@ -84,7 +84,13 @@ export function createTypedConfigModule<T extends z.ZodSchema>(
         isGlobal,
       }),
     ],
-    providers: [serviceClass],
+    providers: [
+      {
+        provide: serviceClass,
+        useFactory: (configService: ConfigService) => new serviceClass(configService),
+        inject: [ConfigService],
+      },
+    ],
     exports: [serviceClass],
   };
 

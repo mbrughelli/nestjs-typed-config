@@ -31,7 +31,11 @@ describe('createTypedConfigModule', () => {
     expect(module).toHaveProperty('imports');
     expect(module).toHaveProperty('providers');
     expect(module).toHaveProperty('exports');
-    expect(module.providers).toContain(TestConfigService);
+    expect(module.providers).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ provide: TestConfigService }),
+      ]),
+    );
     expect(module.exports).toContain(TestConfigService);
   });
 
