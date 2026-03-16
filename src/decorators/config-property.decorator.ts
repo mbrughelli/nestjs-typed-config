@@ -1,10 +1,10 @@
 /**
  * Decorator to mark properties as configuration properties
  * This is mainly for documentation and potential future tooling
- * 
+ *
  * @param options - Configuration property options
  * @returns PropertyDecorator
- * 
+ *
  * @example
  * ```typescript
  * export class AppConfigService extends BaseTypedConfigService<typeof envSchema> {
@@ -33,7 +33,7 @@ export function ConfigProperty(options?: {
 
 /**
  * Get configuration properties metadata from a class
- * 
+ *
  * @param target - The target class
  * @returns Array of configuration property metadata
  */

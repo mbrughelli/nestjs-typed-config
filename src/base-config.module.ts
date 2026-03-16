@@ -6,7 +6,7 @@ import { BaseTypedConfigService } from './base-config.service';
 
 /**
  * Creates a validation function from a Zod schema
- * 
+ *
  * @param schema - The Zod schema to use for validation
  * @returns A validation function compatible with NestJS ConfigModule
  */
@@ -28,25 +28,25 @@ export function createValidationFunction<T extends z.ZodSchema>(schema: T) {
 
 /**
  * Factory function to create a typed configuration module
- * 
+ *
  * @param options - Configuration options
  * @returns A dynamic NestJS module
- * 
+ *
  * @example
  * ```typescript
  * const envSchema = z.object({
  *   NODE_ENV: z.enum(['dev', 'production', 'test']),
  *   PORT: z.coerce.number().default(3000),
  * });
- * 
+ *
  * @Injectable()
  * class AppConfigService extends BaseTypedConfigService<typeof envSchema> {
  *   protected readonly schema = envSchema;
- *   
+ *
  *   get nodeEnv() { return this.get('NODE_ENV'); }
  *   get port() { return this.get('PORT'); }
  * }
- * 
+ *
  * @Module({
  *   imports: [
  *     createTypedConfigModule({
@@ -61,7 +61,7 @@ export function createValidationFunction<T extends z.ZodSchema>(schema: T) {
 export function createTypedConfigModule<T extends z.ZodSchema>(
   options: TypedConfigOptions<T> & {
     serviceClass: Type<BaseTypedConfigService<T>>;
-  }
+  },
 ): DynamicModule {
   const {
     schema,
@@ -73,7 +73,8 @@ export function createTypedConfigModule<T extends z.ZodSchema>(
   } = options;
 
   const shouldValidate = validate && !(ignoreValidationInTest && process.env.NODE_ENV === 'test');
-  const validationFunction = customValidation || (shouldValidate ? createValidationFunction(schema) : undefined);
+  const validationFunction =
+    customValidation || (shouldValidate ? createValidationFunction(schema) : undefined);
 
   const module: DynamicModule = {
     module: class TypedConfigModule {},
@@ -97,7 +98,7 @@ export function createTypedConfigModule<T extends z.ZodSchema>(
 /**
  * Abstract base module class for typed configuration
  * Extend this class to create your own configuration module
- * 
+ *
  * @example
  * ```typescript
  * @Global()
@@ -127,13 +128,13 @@ export abstract class BaseTypedConfigModule {
 
   /**
    * Create a dynamic module for the configuration
-   * 
+   *
    * @param options - Configuration options
    * @returns A dynamic NestJS module
    */
   static forRoot<T extends z.ZodSchema>(
     this: { schema: T } & typeof BaseTypedConfigModule,
-    options?: Partial<TypedConfigOptions<T>>
+    options?: Partial<TypedConfigOptions<T>>,
   ): DynamicModule {
     const {
       validate = true,
@@ -143,7 +144,8 @@ export abstract class BaseTypedConfigModule {
     } = options || {};
 
     const shouldValidate = validate && !(ignoreValidationInTest && process.env.NODE_ENV === 'test');
-    const validationFunction = customValidation || (shouldValidate ? createValidationFunction(this.schema) : undefined);
+    const validationFunction =
+      customValidation || (shouldValidate ? createValidationFunction(this.schema) : undefined);
 
     return {
       module: this as any,

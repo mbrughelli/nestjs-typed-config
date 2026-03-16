@@ -3,11 +3,11 @@ import { EnvironmentType } from '../interfaces';
 
 /**
  * Create a mock configuration service for testing
- * 
+ *
  * @param schema - The Zod schema to base the mock on
  * @param overrides - Override values for specific properties
  * @returns A mock configuration object
- * 
+ *
  * @example
  * ```typescript
  * const envSchema = z.object({
@@ -15,12 +15,12 @@ import { EnvironmentType } from '../interfaces';
  *   PORT: z.coerce.number().default(3000),
  *   DATABASE_URL: z.string().url(),
  * });
- * 
+ *
  * const mockConfig = createTypedConfigMock(envSchema, {
  *   NODE_ENV: 'test',
  *   DATABASE_URL: 'postgresql://test:test@localhost:5432/test',
  * });
- * 
+ *
  * // Use in tests
  * const module = await Test.createTestingModule({
  *   providers: [
@@ -34,11 +34,11 @@ import { EnvironmentType } from '../interfaces';
  */
 export function createTypedConfigMock<T extends z.ZodSchema>(
   schema: T,
-  overrides: Partial<EnvironmentType<T>> = {}
+  overrides: Partial<EnvironmentType<T>> = {},
 ): MockTypedConfigService<T> {
   // Get default values from schema
   const defaults = getSchemaDefaults(schema);
-  
+
   return new MockTypedConfigService(schema, {
     ...defaults,
     ...overrides,
@@ -51,7 +51,7 @@ export function createTypedConfigMock<T extends z.ZodSchema>(
 export class MockTypedConfigService<T extends z.ZodSchema> {
   constructor(
     private readonly schema: T,
-    private readonly values: Partial<EnvironmentType<T>>
+    private readonly values: Partial<EnvironmentType<T>>,
   ) {
     // Create getters for all schema properties
     this.createGetters();
@@ -59,9 +59,9 @@ export class MockTypedConfigService<T extends z.ZodSchema> {
 
   private createGetters(): void {
     const shape = this.getSchemaShape(this.schema);
-    
+
     for (const key of Object.keys(shape)) {
-      if (!this.hasOwnProperty(key)) {
+      if (!Object.prototype.hasOwnProperty.call(this, key)) {
         Object.defineProperty(this, key, {
           get: () => this.values[key as keyof EnvironmentType<T>],
           enumerable: true,
@@ -125,25 +125,25 @@ function getSchemaDefaults<T extends z.ZodSchema>(schema: T): Partial<Environmen
     if (result.success) {
       return result.data;
     }
-    
+
     // If that fails, try to extract defaults from schema shape
     if ('shape' in schema && schema.shape) {
       const defaults: any = {};
       const shape = schema.shape as Record<string, any>;
-      
+
       for (const [key, fieldSchema] of Object.entries(shape)) {
         if ('_def' in fieldSchema && fieldSchema._def.defaultValue) {
           defaults[key] = fieldSchema._def.defaultValue();
         }
       }
-      
+
       return defaults;
     }
   } catch (error) {
     // If all else fails, return empty object
     console.warn('Could not extract defaults from schema:', error);
   }
-  
+
   return {};
 }
 

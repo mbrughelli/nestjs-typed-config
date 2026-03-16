@@ -74,9 +74,7 @@ describe('MockTypedConfigService', () => {
 
   it('should handle schema without shape property', () => {
     // A transformed schema won't have .shape directly
-    const transformedSchema = z
-      .object({ PORT: z.coerce.number() })
-      .transform((val) => val);
+    const transformedSchema = z.object({ PORT: z.coerce.number() }).transform((val) => val);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mock = new MockTypedConfigService(transformedSchema as any, { PORT: 3000 } as any);

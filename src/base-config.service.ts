@@ -5,9 +5,9 @@ import { EnvironmentType } from './interfaces';
 
 /**
  * Abstract base class for typed configuration services
- * 
+ *
  * @template T - The Zod schema type for environment validation
- * 
+ *
  * @example
  * ```typescript
  * const envSchema = z.object({
@@ -15,17 +15,17 @@ import { EnvironmentType } from './interfaces';
  *   PORT: z.coerce.number().default(3000),
  *   DATABASE_URL: z.string().url(),
  * });
- * 
+ *
  * @Injectable()
  * export class AppConfigService extends BaseTypedConfigService<typeof envSchema> {
  *   get nodeEnv() {
  *     return this.get('NODE_ENV');
  *   }
- *   
+ *
  *   get port() {
  *     return this.get('PORT');
  *   }
- *   
+ *
  *   get databaseUrl() {
  *     return this.get('DATABASE_URL');
  *   }
@@ -44,7 +44,7 @@ export abstract class BaseTypedConfigService<T extends z.ZodSchema> {
 
   /**
    * Get a configuration value by key with full type safety
-   * 
+   *
    * @param key - The configuration key
    * @returns The typed configuration value
    */
@@ -54,21 +54,21 @@ export abstract class BaseTypedConfigService<T extends z.ZodSchema> {
 
   /**
    * Get a configuration value with a fallback
-   * 
+   *
    * @param key - The configuration key
    * @param fallback - Fallback value if the key is not found
    * @returns The configuration value or fallback
    */
   protected getWithFallback<K extends keyof EnvironmentType<T>>(
     key: K,
-    fallback: EnvironmentType<T>[K]
+    fallback: EnvironmentType<T>[K],
   ): EnvironmentType<T>[K] {
     return this.configService.get(key as string, fallback as any);
   }
 
   /**
    * Get all configuration values
-   * 
+   *
    * @returns All configuration values as a typed object
    */
   protected getAll(): EnvironmentType<T> {
@@ -78,7 +78,7 @@ export abstract class BaseTypedConfigService<T extends z.ZodSchema> {
 
   /**
    * Check if running in test environment
-   * 
+   *
    * @returns True if NODE_ENV is 'test'
    */
   protected isTest(): boolean {
@@ -88,7 +88,7 @@ export abstract class BaseTypedConfigService<T extends z.ZodSchema> {
 
   /**
    * Check if running in development environment
-   * 
+   *
    * @returns True if NODE_ENV is 'dev' or 'development'
    */
   protected isDevelopment(): boolean {
@@ -98,7 +98,7 @@ export abstract class BaseTypedConfigService<T extends z.ZodSchema> {
 
   /**
    * Check if running in production environment
-   * 
+   *
    * @returns True if NODE_ENV is 'production'
    */
   protected isProduction(): boolean {

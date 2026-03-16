@@ -1,8 +1,8 @@
 /**
  * @mbrughelli/nestjs-typed-config
- * 
+ *
  * Type-safe configuration module for NestJS applications with Zod validation
- * 
+ *
  * @author Michael Brughelli
  * @license MIT
  */
